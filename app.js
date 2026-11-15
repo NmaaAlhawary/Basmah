@@ -202,7 +202,7 @@ const bell = () => `<button class="icon-btn" data-go="notifs" aria-label="الإ
 // root tabs get an iOS-style large title; pushed screens get a compact nav bar
 const bar = (title, sub = '', opts = {}) => opts.noBack ? `
   <header class="top large ${opts.cls || ''}">
-    <div class="top-row"><div class="brand"><span class="brand-mark"><img src="assets/logo.svg" alt=""></span><span>بصمة</span></div>${opts.right ?? bell()}</div>
+    <div class="top-row"><div class="brand"><span class="brand-mark"><img src="assets/logo-gold.svg" alt=""></span><span>بصمة</span></div>${opts.right ?? bell()}</div>
     <h1>${title}</h1>${sub ? `<p class="sub">${sub}</p>` : ''}
   </header>` : `
   <header class="top ${opts.cls || ''}">
