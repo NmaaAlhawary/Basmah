@@ -97,25 +97,28 @@ const COMPS = [
   { id: 'k2', img: 'assets/photos/library.jpg', title: '16 كتاباً قبل 16', field: 'lang', status: 'annual', ages: ['disc', 'dev', 'empower'], deadline: 'مسابقة سنوية — تابع إعلان الجهة',
     org: 'مكتبة درب المعرفة · مؤسسة عبد الحميد شومان', prize: 'تكريم الفائزين', ageText: 'من 7 إلى 11 سنة، ومن 12 إلى 16 سنة',
     rules: ['قراءة 16 كتاباً من فئات متنوعة قبل سن 16', 'إرسال ملخصات إلكترونية للكتب عبر رابط التسجيل الرسمي', 'مفتوحة للأردنيين والمقيمين في الأردن'],
-    facts: [['2018', 'سنة الإطلاق'], ['21', 'متأهلاً في 2025'], ['6', 'فائزين في 2025']],
+    facts: [['2018', 'سنة الإطلاق', 'calendar-blank'], ['21', 'متأهلاً في 2025', 'users-three'], ['6', 'فائزين في 2025', 'trophy']],
     url: 'https://shoman.org/en/Awards/16-before-16/About-the-Award' },
   { id: 'k3', img: 'assets/photos/robotics.jpg', title: 'المسابقة الوطنية للروبوت · FIRST LEGO League', field: 'science', status: 'annual', ages: ['dev', 'empower'], deadline: 'مسابقة سنوية — تابع إعلان الجهة',
     org: 'مركز اليوبيل للتميز التربوي · مؤسسة الملك الحسين', prize: 'التأهل للمنافسات الإقليمية والدولية',
     rules: ['فرق مدرسية أو مجتمعية', 'تصميم روبوت وبرمجته وفق قوانين FIRST LEGO League', 'عرض مشروع ابتكاري أمام لجنة التحكيم'],
-    facts: [['2005', 'تُقام منذ'], ['17', 'دورة حتى 2022'], ['15+', 'عاماً من المسابقات']],
+    facts: [['2005', 'تُقام منذ', 'calendar-blank'], ['17', 'دورة حتى 2022', 'flag-checkered'], ['15+', 'عاماً من المسابقات', 'medal']],
     url: 'https://jubilee.edu.jo/first-lego-league' },
   { id: 'k4', img: 'assets/photos/chess.jpg', title: 'بطولات المملكة للشطرنج حسب الفئات العمرية', field: 'mind', status: 'annual', ages: ['disc', 'dev', 'empower'], deadline: 'بطولات سنوية — تابع إعلان الاتحاد',
     org: 'الاتحاد الملكي الأردني للشطرنج', prize: 'ألقاب وطنية لكل فئة عمرية', ageText: 'فئات من تحت 8 حتى تحت 18 سنة',
     rules: ['بطولات فردية لكل فئة عمرية', 'أُقيمت بطولة 2025 لفئة تحت 12 بين 31 تموز و8 آب في عمّان', 'التسجيل عبر الاتحاد'],
-    facts: [['100+', 'مشارك ومشاركة في بطولة الناشئين'], ['U8–U18', 'فئات عمرية']],
+    facts: [['100+', 'مشارك ومشاركة في بطولة الناشئين', 'users-three'], ['U8–U18', 'فئات عمرية', 'chart-bar']],
     url: 'https://www.joc.jo/en/news/4158/chess-championships-underway' },
   { id: 'k5', img: 'assets/photos/reading.jpg', title: 'تحدي القراءة العربي · الدورة العاشرة', field: 'lang', status: 'done', ages: ['disc', 'dev', 'empower'], deadline: 'اختُتمت في 23 حزيران 2026',
     org: 'وزارة التربية والتعليم', prize: 'تكريم أوائل المملكة', ageText: 'طلبة المدارس',
     rules: ['تُقام التصفيات عبر المدارس بإشراف مشرفين معتمدين'],
-    facts: [['2.1M+', 'طالب وطالبة'], ['5,890', 'مدرسة'], ['8,000+', 'مشرف']],
+    facts: [['2.1M+', 'طالب وطالبة', 'student'], ['5,890', 'مدرسة', 'buildings'], ['8,000+', 'مشرف', 'chalkboard-teacher']],
     url: 'https://petra.gov.jo/en/news/education-ministry-celebrates-10th-arab-reading-challenge-winners-with-record-breaking-participation' },
 ];
-const CRITERIA = [['المهارة والإتقان', 40], ['الإبداع والأصالة', 25], ['التطور والجهد', 20], ['التعبير والثقة', 15]];
+const CRITERIA = [['المهارة والإتقان', 40, 'target'], ['الإبداع والأصالة', 25, 'lightbulb'], ['التطور والجهد', 20, 'trend-up'], ['التعبير والثقة', 15, 'smiley']];
+const factTile = (v, l, i, n) => { const [fg, bg] = PAL[n % 6]; return `<div class="fact" style="--c:${fg};--s:${bg}"><span class="fi">${di(i, fg)}</span><b>${v}</b><span>${l}</span></div>`; };
+// accent palette for info rows, rules and criteria: [fg, soft bg]
+const PAL = [['#2F6FDB', '#E4EEFB'], ['#7B4FD6', '#F1E9FF'], ['#E07A2E', '#FFEFE3'], ['#1F9D78', '#E3F3EE'], ['#D94C7A', '#FDE7EF'], ['#B88A1E', '#FFF6DC']];
 
 // public profiles (only shown with guardian approval — display name + age group, no contact / school / exact location)
 const PUBLIC = [
@@ -409,10 +412,7 @@ SCREENS.public = () => {
   const p = PUBLIC.find(x => x.id === route.id);
   return `${bar(p.name, FIELDS[p.field].n)}
   <div class="scroll screen-in">
-    <div class="profile-card"><div class="cover" style="--c:${FIELDS[p.field].fg}"></div>
-      <div class="prof-head">${av(p, 'lg')}
-      <h3>${p.name}</h3><div class="meta">${p.age} سنوات · ${ageGroup(p.age).n} · ${FIELDS[p.field].n}</div>
-      <div class="chips" style="justify-content:center;margin-top:12px">${p.skills.map(s => `<span class="tag tag-purple">${s}</span>`).join('')}</div></div></div>
+    ${profHead(p, p.skills.map(s => `<span class="tag tag-purple">${s}</span>`).join(''))}
     <div class="card"><b>نبذة عن الموهبة</b><p class="muted" style="margin:6px 0 0;line-height:1.8">${p.bio}</p></div>
     <div class="sec-h"><h3>أعمال مختارة</h3></div>
     <div class="works">${p.works.map(([title, e, type, m], i) => `<div class="work">${workPic({ id: p.id + i, title, e, type, m }, FIELDS[p.field].fg, p.bg)}<div class="cap">${title}<div class="small muted" style="font-weight:400">${type === 'video' ? 'فيديو' : 'صورة'}</div></div></div>`).join('')}</div>
@@ -425,6 +425,12 @@ SCREENS.public = () => {
     <button class="btn btn-navy" style="margin-top:8px" data-action="send-report" ${ui.reason === undefined ? 'disabled' : ''}>إرسال البلاغ</button>`) : ''}`;
 };
 
+const profHead = (c, badges, stats) => { const F = FIELDS[c.field], g = ageGroup(c.age);
+  return `<div class="profile-card"><div class="cover" style="--c:${F.fg}"><i class="ph-duotone ph-${F.e} cv-wm"></i><i class="ph-fill ph-sparkle cv-s1"></i><i class="ph-fill ph-star-four cv-s2"></i></div>
+    <div class="prof-head">${av(c, 'lg')}<h3>${esc(c.name)}</h3>
+      <div class="pchips"><span class="pchip" style="--c:${F.fg}">${di(F.e, F.fg)} ${F.n}</span><span class="pchip" style="--c:#7B4FD6">${di('cake', '#7B4FD6')} ${c.age} سنوات</span><span class="pchip" style="--c:#E07A2E">${di('plant', '#E07A2E')} ${g.n}</span></div>
+      <div class="chips" style="justify-content:center;margin-top:10px">${badges}</div></div>
+    ${stats ? `<div class="pstats">${stats.map(([i, v, l], n) => `<div style="--c:${PAL[n][0]};--s:${PAL[n][1]}"><span>${di(i, PAL[n][0])}</span><b>${v}</b><small>${l}</small></div>`).join('')}</div>` : ''}</div>`; };
 SCREENS.child = () => {
   const c = kid(route.id); if (!c) return SCREENS.home();
   const tab = ui.tab || 'works', g = ageGroup(c.age);
@@ -432,11 +438,8 @@ SCREENS.child = () => {
   const step = approved ? (S.requests.some(r => r.child === c.id) ? 7 : 5) : c.works.length ? 4 : 2;
   return `${bar(esc(c.name), 'ملف الموهبة', { right: `<button class="icon-btn" data-go="privacy" data-id="${c.id}" aria-label="الخصوصية">${ic('settings')}</button>` })}
   <div class="scroll screen-in">
-    <div class="profile-card"><div class="cover" style="--c:${FIELDS[c.field].fg}"></div>
-      <div class="prof-head">${av(c, 'lg')}
-      <h3>${esc(c.name)}</h3><div class="meta">${c.age} سنوات · فئة ${g.n} · ${FIELDS[c.field].n}</div>
-      <div style="margin-top:10px">${c.visibility === 'public' ? `<span class="tag tag-green">${ic('eye')} ملف عام</span>` : `<span class="tag tag-gray">${ic('lock')} ملف خاص · لا يظهر في الاكتشاف</span>`}</div></div>
-      <div class="stats"><div><b>${c.works.length}</b><span>أعمال</span></div><div><b>${c.achievements.length}</b><span>إنجازات</span></div><div><b>${S.requests.filter(r => r.child === c.id).length}</b><span>طلبات فرص</span></div></div></div>
+    ${profHead(c, `${c.visibility === 'public' ? `<span class="tag tag-green">${ic('eye')} ملف عام</span>` : `<span class="tag tag-gray">${ic('lock')} ملف خاص · لا يظهر في الاكتشاف</span>`}`,
+      [['film-strip', c.works.length, 'أعمال'], ['medal', c.achievements.length, 'إنجازات'], ['paper-plane-tilt', S.requests.filter(r => r.child === c.id).length, 'طلبات فرص']])}
     <div class="card"><b>نبذة</b><p class="muted" style="margin:6px 0 10px;line-height:1.8">${esc(c.bio || 'لم تُضف نبذة بعد.')}</p>
       <div class="chips">${c.skills.map(s => `<span class="tag tag-purple">${esc(s)}</span>`).join('')}</div></div>
     <button class="list-item" data-go="growth" data-id="${c.id}"><div class="thumb" style="background:var(--green-soft);color:var(--green)">${di('chart-line-up')}</div><div class="grow"><b>سجل التطور</b><div class="small muted">المهارات والإنجازات على خط زمني</div></div>${ic('chev', 'data-chev')}</button>
@@ -613,11 +616,11 @@ SCREENS.comp = () => {
   return `${bar(c.own ? 'مسابقة بصمة' : 'مسابقة وطنية', FIELDS[c.field].n)}
   <div class="scroll screen-in">
     <div class="photo-hero comp" style="background-image:url(${c.img})"><div class="ph-cap"><span>${compStatus(c)}</span><h2>${c.title}</h2><p>${c.org}</p></div></div>
-    ${c.facts ? `<div class="facts">${c.facts.map(([v, l]) => `<div><b>${v}</b><span>${l}</span></div>`).join('')}</div>` : ''}
-    <div class="card info-list" style="margin-top:12px">${[['calendar', 'الموعد', c.deadline], ['user', 'الفئات العمرية', ageText], ['gift', 'الجائزة', c.prize]].map(([i, l, v]) =>
-      `<div class="info-row"><span class="ii">${ic(i)}</span><div><span>${l}</span><b>${v}</b></div></div>`).join('')}</div>
-    <div class="card"><b>${c.own ? 'شروط المشاركة' : 'كيف تشارك؟'}</b><ul class="rules">${c.rules.map(r => `<li>${r}</li>`).join('')}</ul></div>
-    ${c.own ? `<div class="card"><b>طريقة التحكيم</b>${CRITERIA.map(([l, v]) => `<div class="crit"><div class="lbl"><span>${l}</span><b>${v}%</b></div><div class="bar"><i style="width:${v}%"></i></div></div>`).join('')}
+    ${c.facts ? `<div class="facts n${c.facts.length}">${c.facts.map(([v, l, i], n) => factTile(v, l, i, n)).join('')}</div>` : ''}
+    <div class="card info-list" style="margin-top:12px">${[['calendar', 'الموعد', c.deadline], ['user', 'الفئات العمرية', ageText], ['gift', 'الجائزة', c.prize]].map(([i, l, v], n) =>
+      `<div class="info-row"><span class="ii" style="background:${PAL[n][1]}">${di(i, PAL[n][0])}</span><div><span>${l}</span><b>${v}</b></div></div>`).join('')}</div>
+    <div class="card"><b>${c.own ? 'شروط المشاركة' : 'كيف تشارك؟'}</b><ol class="rules c">${c.rules.map((r, n) => `<li><span class="rn" style="background:${PAL[(n + 3) % 6][1]};color:${PAL[(n + 3) % 6][0]}">${n + 1}</span>${r}</li>`).join('')}</ol></div>
+    ${c.own ? `<div class="card"><b>طريقة التحكيم</b>${CRITERIA.map(([l, v, i], n) => `<div class="crit" style="--c:${PAL[n][0]};--s:${PAL[n][1]}"><div class="lbl"><span><i class="ci">${di(i, PAL[n][0])}</i>${l}</span><b>${v}%</b></div><div class="bar"><i style="width:${v}%"></i></div></div>`).join('')}
       <div class="small muted">${c.note}.</div></div>` : ''}
     ${entered.length ? `<div class="notice safe">${ic('check-circle')}<div>شارك ${entered.map(e => esc(kid(e.child)?.name)).join('، ')} — المشاركة قيد المراجعة.</div></div>` : ''}
     ${c.status === 'open' ? `<button class="btn btn-navy" data-action="enter-open">${ic('trophy')} المشاركة في المسابقة</button>`
@@ -722,7 +725,7 @@ SCREENS.growth = () => {
   ];
   return `${bar('سجل التطور', esc(c.name), { right: `<button class="icon-btn" data-action="ach-open" aria-label="إضافة إنجاز">${ic('plus')}</button>` })}
   <div class="scroll screen-in">
-    <div class="facts" style="margin-top:0">${[[c.works.filter(w => w.status === 'approved').length, 'أعمال منشورة'], [c.achievements.length, 'إنجازات'], [c.skills.length, 'مهارات']].map(([v, l]) => `<div><b>${v}</b><span>${l}</span></div>`).join('')}</div>
+    <div class="facts" style="margin-top:0">${[[c.works.filter(w => w.status === 'approved').length, 'أعمال منشورة'], [c.achievements.length, 'إنجازات'], [c.skills.length, 'مهارات']].map(([v, l], n) => factTile(v, l, ['film-strip', 'medal', 'sparkle'][n], n)).join('')}</div>
     <div class="sec-h"><h3>المهارات</h3></div>
     <div class="card">${c.skills.map((s, i) => { const lv = (c.levels || {})[s] ?? (i ? 1 : 2); return `<div class="skill"><b>${esc(s)}</b><div class="lv">${['مبتدئ', 'متوسط', 'متقدم'].map((l, k) => `<button class="${k === lv ? 'on' : ''}" data-action="level" data-s="${esc(s)}" data-v="${k}">${l}</button>`).join('')}</div></div>`; }).join('')}
       <p class="small muted" style="margin:10px 0 0">يحدّدها ولي الأمر أو المدرب لمتابعة التقدم — ليست تقييماً رسمياً.</p></div>
@@ -824,9 +827,48 @@ SCREENS.settings = () => {
     <div class="field"><label>رقم الهاتف</label><input data-parent="phone" value="${esc(p.phone)}" dir="ltr" style="text-align:right" inputmode="tel"><div class="hint">لا يظهر لأي جهة أو مستخدم.</div></div>
     <div class="sec-h"><h3>الإشعارات</h3></div>
     <div class="menu">${sw('review', 'نتيجة المراجعة', 'عند اعتماد عمل أو طلب تعديله')}${sw('opps', 'فرص تناسب أطفالي', 'برامج جديدة في مجالاتهم وأعمارهم')}${sw('comps', 'المسابقات', 'عند فتح التسجيل')}${sw('weekly', 'ملخص أسبوعي', 'كل يوم أحد')}</div>
+    <div class="sec-h"><h3>القواعد والسياسات</h3></div>
+    <div class="menu">${Object.entries(RULES).map(([id, r]) => mrow(r.i, r.t, r.d, `data-go="rules" data-id="${id}"`, PAL[r.c][0])).join('')}${mrow('shield', 'سلامة الأطفال', 'كيف نحمي الأطفال على بصمة', 'data-go="safety"', PAL[4][0])}</div>
     <div class="sec-h"><h3>اللغة</h3></div>
     <div class="seg"><button class="${isEN() ? '' : 'on'}" data-action="lang" data-v="ar">العربية</button><button class="${isEN() ? 'on' : ''}" data-action="lang" data-v="en">English</button></div>
     <button class="btn btn-danger" data-action="del-account" style="margin-top:20px">${ic('trash')} ${S.deletion ? 'طلب الحذف قيد المعالجة' : 'طلب حذف الحساب وجميع البيانات'}</button>
+  </div>`;
+};
+
+const RULES = {
+  use: { t: 'قواعد الاستخدام', i: 'users-three', c: 0, d: 'لأولياء الأمور وكل من يستخدم بصمة', r: [
+    ['user', 'الحساب لولي الأمر', 'يُنشئ ولي الأمر الحساب ويديره، ولا يملك الطفل حساباً مستقلاً.'],
+    ['identification-card', 'بيانات صحيحة', 'استخدم اسمك الحقيقي ورقم هاتف فعّال لتصلك نتائج المراجعة والطلبات.'],
+    ['hand-heart', 'احترام الجميع', 'لا تعليقات مسيئة أو مقارنات جارحة بين الأطفال.'],
+    ['chat-slash', 'لا تواصل مباشر', 'يُمنع طلب التواصل مع أي طفل؛ الجهات تتواصل مع ولي الأمر فقط.'],
+    ['flag-banner', 'أبلغ عن أي مخالفة', 'زر الإبلاغ متاح في كل ملف ومحتوى عام، ويُراجع خلال 24 ساعة.']] },
+  content: { t: 'قواعد المحتوى', i: 'film-strip', c: 1, d: 'ما يُسمح برفعه من صور وفيديو ونصوص', r: [
+    ['user-focus', 'من إنتاج الطفل', 'يجب أن يكون العمل من أداء الطفل نفسه، دون نسخ أعمال الآخرين.'],
+    ['eye-slash', 'لا معلومات شخصية', 'لا يظهر اسم المدرسة أو الزي المدرسي أو عنوان المنزل أو أرقام الهواتف.'],
+    ['t-shirt', 'لباس وبيئة مناسبة', 'محتوى لائق ومناسب لعمر الطفل وثقافة المجتمع.'],
+    ['timer', 'مدة وجودة', 'الفيديو حتى 3 دقائق، والصور واضحة بصيغة JPG أو PNG.'],
+    ['magnifying-glass', 'مراجعة قبل النشر', 'كل عمل يراجعه فريق بصمة، وقد يُطلب تعديله قبل اعتماده.']] },
+  comps: { t: 'قواعد المسابقات', i: 'trophy', c: 2, d: 'تحكيم عادل ومعايير معلنة', r: [
+    ['list-numbers', 'معايير معلنة', 'المهارة 40%، الإبداع 25%، التطور 20%، التعبير 15%.'],
+    ['scales', 'تحكيم مستقل', 'لجنة متخصصة تقيّم الأعمال، ولا يعتمد الفوز على التصويت.'],
+    ['currency-circle-dollar', 'لا تصويت مدفوع', 'لا يمكن شراء الأصوات أو الترتيب بأي شكل.'],
+    ['number-circle-one', 'مشاركة واحدة', 'عمل واحد لكل طفل في كل مسابقة، ضمن فئته العمرية.'],
+    ['seal-check', 'نتائج شفافة', 'تُعلن النتائج مع ملاحظات تشجيعية لكل المشاركين.']] },
+  privacy: { t: 'الخصوصية والبيانات', i: 'shield-check', c: 3, d: 'كيف نحمي بيانات طفلك', r: [
+    ['check-square', 'موافقات منفصلة', 'للملف، والصور والفيديو، والنشر العام، والمشاركة مع الجهات.'],
+    ['lock', 'خاص افتراضياً', 'ملف الطفل خاص حتى تختار نشره بنفسك.'],
+    ['share-network', 'مشاركة عند الطلب فقط', 'لا يُشارك الملف مع أي جهة إلا بموافقتك لكل طلب على حدة.'],
+    ['trash', 'حق الحذف', 'اسحب موافقتك أو احذف جميع البيانات متى شئت.'],
+    ['key', 'صلاحيات محدودة', 'وصول محدود للموظفين مع سجل بكل تعديل أو حذف.']] },
+};
+SCREENS.rules = () => {
+  const k = route.id && RULES[route.id] ? route.id : 'use', x = RULES[k], [fg, bg] = PAL[x.c];
+  return `${bar('القواعد والسياسات', '', { right: '' })}
+  <div class="scroll screen-in">
+    <div class="hscroll" style="padding-bottom:6px">${Object.entries(RULES).map(([id, r]) => `<button class="chip ${id === k ? 'on' : ''}" data-go="rules" data-id="${id}" data-replace>${di(r.i, id === k ? '' : PAL[r.c][0])} ${r.t}</button>`).join('')}</div>
+    <div class="rules-hero" style="--c:${fg};--s:${bg}"><span class="rh-i">${di(x.i, fg)}</span><div><h3>${x.t}</h3><p>${x.d}</p></div></div>
+    <div class="rule-list">${x.r.map(([i, t, d], n) => `<div class="rule" style="--c:${PAL[(x.c + n) % 6][0]};--s:${PAL[(x.c + n) % 6][1]}"><span class="rl-n">${n + 1}</span><span class="rl-i">${di(i, PAL[(x.c + n) % 6][0])}</span><div><b>${t}</b><p>${d}</p></div></div>`).join('')}</div>
+    <p class="fine">آخر تحديث: تشرين الثاني 2026 · نموذج أولي — النص النهائي يُعتمد قانونياً قبل الإطلاق.</p>
   </div>`;
 };
 
@@ -877,7 +919,7 @@ const trRun = m => {
   }
   return out.join(' ').replace(/،/g, ',').replace(/؟/g, '?').replace(/[«»]/g, '"').replace(/ ,/g, ',');
 };
-const tr = t => t.replace(AR_RUN, trRun);
+const tr = t => { const k = t.trim(); return EN[k] !== undefined ? t.replace(k, EN[k]) : t.replace(AR_RUN, trRun); };
 const isEN = () => S.lang === 'en';
 function translateDOM(root) {
   const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);

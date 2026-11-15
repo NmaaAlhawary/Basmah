@@ -1,4 +1,4 @@
-const CACHE = 'basmah-v12';
+const CACHE = 'basmah-v15';
 const FILES = ['./', 'index.html', 'styles.css', 'app.js', 'i18n-en.js', 'manifest.webmanifest',
   'assets/logo.svg', 'assets/logo-gold.svg', 'assets/wordmark.svg', 'assets/icon-192.png', 'assets/icon-512.png',
   'assets/icons/bold.css', 'assets/icons/fill.css', 'assets/icons/duotone.css',

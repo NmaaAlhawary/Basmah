@@ -288,7 +288,11 @@ b, strong { font-weight: 600; }
 /* ---------- competitions ---------- */
 .crit { margin: 12px 0; }
 .crit .bar { height: 6px; background: var(--line-2); border-radius: 6px; overflow: hidden; margin-top: 6px; }
-.crit .bar i { display: block; height: 100%; background: var(--navy); border-radius: 6px; }
+.crit .bar { height: 8px; background: var(--s, var(--line-2)); }
+.crit .bar i { display: block; height: 100%; background: linear-gradient(90deg, color-mix(in srgb, var(--c, var(--navy)) 70%, #fff), var(--c, var(--navy))); border-radius: 6px; }
+.crit .lbl span { display: flex; align-items: center; gap: 8px; }
+.crit .lbl b { color: var(--c, var(--ink)); }
+.crit .ci { width: 28px; height: 28px; border-radius: 9px; background: var(--s); display: grid; place-items: center; font-size: 16px; font-style: normal; }
 .crit .lbl { display: flex; justify-content: space-between; font-size: 13.5px; color: var(--ink-2); }
 .winner { display: flex; gap: 12px; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--line-2); }
 .winner:last-child { border: 0; }
@@ -379,9 +383,11 @@ a.btn { margin-top: 10px; }
 .info-row b { display: block; font-size: 14.5px; line-height: 1.55; }
 
 .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
-.facts div { background: var(--surface); border: 1px solid var(--line-2); border-radius: 16px; padding: 12px 6px; text-align: center; box-shadow: var(--shadow); }
-.facts b { display: block; font-size: 18px; font-weight: 700; color: var(--navy); direction: ltr; }
-.facts span { font-size: 11.5px; color: var(--muted); line-height: 1.4; display: block; margin-top: 2px; }
+.facts.n2 { grid-template-columns: 1fr 1fr; }
+.fact { position: relative; overflow: hidden; background: linear-gradient(160deg, var(--s) 0%, var(--surface) 75%); border: 1px solid color-mix(in srgb, var(--c) 14%, transparent); border-radius: 18px; padding: 12px 10px 12px; text-align: start; box-shadow: var(--shadow); }
+.fact .fi { width: 32px; height: 32px; border-radius: 10px; background: var(--surface); display: grid; place-items: center; font-size: 18px; box-shadow: 0 2px 6px color-mix(in srgb, var(--c) 18%, transparent); margin-bottom: 8px; }
+.fact b { display: block; font-size: 20px; font-weight: 700; color: var(--c); direction: ltr; text-align: start; unicode-bidi: plaintext; letter-spacing: -.2px; }
+.fact > span:last-child { font-size: 11.5px; color: var(--ink-2); line-height: 1.45; display: block; margin-top: 2px; }
 .comp-card { display: block; width: 100%; text-align: right; }
 .comp-card b { font-size: 15.5px; }
 .rules { margin: 8px 0 0; padding-right: 18px; line-height: 1.95; color: var(--ink-2); font-size: 14px; }
@@ -569,3 +575,44 @@ button.mrow:active, .list-item:active, .kid-pill:active, .opp-card:active { back
 .reel-cap button .icn { color: #fff !important; }
 #app[dir=ltr] .reel .play { left: auto; right: 10px; }
 #app[dir=ltr] .reel .dur { right: auto; left: 10px; }
+
+.rules.c { list-style: none; padding: 0; margin-top: 10px; }
+.rules.c li { display: flex; align-items: center; gap: 10px; padding: 5px 0; line-height: 1.6; }
+.rules.c .rn { width: 26px; height: 26px; border-radius: 9px; display: grid; place-items: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+#app[dir=ltr] .rules.c { padding-left: 0; }
+.info-row .ii i { font-size: 19px; }
+
+/* ---------- profile header v2 ---------- */
+.cover { height: 104px; position: relative; overflow: hidden; background:
+  radial-gradient(160px 110px at 12% 10%, color-mix(in srgb, var(--c) 55%, transparent), transparent 70%),
+  radial-gradient(220px 140px at 92% 100%, color-mix(in srgb, var(--c) 40%, transparent), transparent 70%),
+  linear-gradient(135deg, color-mix(in srgb, var(--c) 30%, #fff), color-mix(in srgb, var(--c) 62%, #fff)); }
+.cv-wm { position: absolute; font-size: 120px; left: -14px; top: -18px; color: #fff; opacity: .35; transform: rotate(-12deg); }
+.cv-s1, .cv-s2 { position: absolute; color: #fff; opacity: .8; }
+.cv-s1 { font-size: 18px; right: 22%; top: 18px; }
+.cv-s2 { font-size: 12px; right: 12%; top: 46px; opacity: .6; }
+.prof-head .avatar.lg { box-shadow: 0 8px 22px rgba(11,31,59,.14); }
+.pchips { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 8px; }
+.pchip { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 600; padding: 4px 10px; border-radius: 20px; color: var(--c); background: color-mix(in srgb, var(--c) 10%, #fff); }
+.pchip i { font-size: 15px; }
+.pstats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 0 14px 14px; }
+.pstats div { background: var(--s); border-radius: 16px; padding: 10px 6px; text-align: center; }
+.pstats span { width: 30px; height: 30px; margin: 0 auto 4px; border-radius: 10px; background: #fff; display: grid; place-items: center; font-size: 17px; }
+.pstats b { display: block; font-size: 19px; font-weight: 700; color: var(--c); line-height: 1.2; }
+.pstats small { font-size: 11.5px; color: var(--ink-2); }
+#app[dir=ltr] .cv-wm { left: auto; right: -14px; transform: rotate(12deg) scaleX(-1); }
+
+/* ---------- rules ---------- */
+.rules-hero { display: flex; gap: 12px; align-items: center; padding: 16px; border-radius: 22px; margin: 8px 0 12px; background: linear-gradient(140deg, var(--s), var(--surface)); border: 1px solid color-mix(in srgb, var(--c) 18%, transparent); }
+.rules-hero h3 { margin: 0; font-size: 18px; }
+.rules-hero p { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+.rh-i { width: 50px; height: 50px; border-radius: 16px; background: #fff; display: grid; place-items: center; font-size: 28px; flex-shrink: 0; box-shadow: 0 4px 12px color-mix(in srgb, var(--c) 20%, transparent); }
+.rule-list { display: grid; gap: 8px; }
+.rule { position: relative; display: flex; gap: 12px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line-2); border-radius: 18px; padding: 14px; box-shadow: var(--shadow); border-inline-start: 4px solid var(--c); }
+.rule b { display: block; font-size: 14.5px; }
+.rule p { margin: 3px 0 0; font-size: 13px; color: var(--ink-2); line-height: 1.7; }
+.rl-i { width: 38px; height: 38px; border-radius: 12px; background: var(--s); display: grid; place-items: center; font-size: 21px; flex-shrink: 0; }
+.rl-n { position: absolute; top: 10px; left: 12px; font-size: 11px; font-weight: 700; color: var(--c); opacity: .7; }
+#app[dir=ltr] .rl-n { left: auto; right: 12px; }
+.chip i { font-size: 15px; }
+.prof-head { position: relative; z-index: 1; }
